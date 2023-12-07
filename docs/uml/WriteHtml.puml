@@ -1,0 +1,21 @@
+@startuml
+package fr.ensim.tp.xmjson.deezer.service.* {
+
+interface "IHTMLAlbum" {
++{abstract} void write(Album album, OutputStream outputStream) throws Exception
+}
+
+enum "Output" {
++XML
++JSON
+}
+
+IHTMLAlbum <|-- StAXHtmlAlbum
+IHTMLAlbum <|-- DOMHtmlAlbum
+note bottom of StAXHtmlAlbum
+Implémentez en premier cette classe.
+A la fin des TP, s'il vous reste du temps,
+vous pouvez implémenter DOMHtmlAlbum.
+end note
+}
+@enduml

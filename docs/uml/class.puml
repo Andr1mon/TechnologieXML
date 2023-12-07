@@ -1,0 +1,15 @@
+@startuml
+
+interface "IHTMLAlbum" {
++{abstract} void write(Album album, OutputStream outputStream) throws Exception
+}
+
+enum "Output" {
++XML
++JSON
+}
+
+IHTMLAlbum <|-- StAXHtmlAlbum
+IHTMLAlbum <|-- DOMHtmlAlbum
+
+@enduml

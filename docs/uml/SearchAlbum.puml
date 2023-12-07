@@ -1,0 +1,27 @@
+@startuml
+
+package fr.ensim.tp.xmjson.deezer.service.* {
+abstract class "AbstractSearchAlbum" {
++List<Album> find(String author)
++{abstract} List<Album> readAlbums(InputStream in) throws Exception
++{abstract} Ouput format()
+}
+
+enum "Output" {
++XML
++JSON
+}
+
+AbstractSearchAlbum <|-- SAXSearchAlbum
+AbstractSearchAlbum <|-- JSONSearchAlbum
+AbstractSearchAlbum <|-- StaXSearchAlbum
+AbstractSearchAlbum <|-- DOMSearchAlbum
+
+note bottom of SAXSearchAlbum
+Implémentez en premier cette classe.
+A la fin des TP, s'il vous reste du temps,
+vous pouvez implémenter les autres classes.
+end note
+}
+
+@enduml

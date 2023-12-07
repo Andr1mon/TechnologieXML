@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="ConsoleAppender" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{DEFAULT} %-5p %C - %m\n"/>
+		</Console>
+		<RollingFile name="FileAppender"
+					 fileName="appName.log"
+					 filePattern="appName-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout pattern="%d{DEFAULT} %-5p %C - %m\n"/>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="19500KB"/>
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="debug">
+			<AppenderRef ref="ConsoleAppender"/>
+		</Root>
+		<Logger name="fr.ensim" level="debug" additivity="false">
+			<AppenderRef ref="ConsoleAppender"/>
+			<AppenderRef ref="FileAppender"/>
+		</Logger>
+	</Loggers>
+</Configuration>

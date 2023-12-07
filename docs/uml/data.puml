@@ -1,0 +1,43 @@
+@startuml
+package fr.ensim.tp.xmjson.deezer.data  {
+
+class "Album" {
+  -Artist artist;
+  -String id;
+  -String title;
+  -String cover;
+  +Album()
+  +String getId()
+  +void setId(String id)
+  +String getName()
+  +void setName(String name)
+  +String getLink()
+  +void setLink(String link)
+  +String getPicture()
+  +void setPicture(String picture)
+}
+
+class "Artist" {
+  -String id
+  -String name
+  -String link
+  -String picture
+  +Artist()
+  +String getId()
+  +void setId(String id)
+  +String getName()
+  +void setName(String name)
+  +String getLink()
+  +void setLink(String link)
+  +String getPicture()
+}
+class "Track" {
+  -String title
+  -String preview;
+  +Track()
+  +String getTitle()
+  +void setTitle(String title)
+  +String getPreview()
+}
+}
+@enduml

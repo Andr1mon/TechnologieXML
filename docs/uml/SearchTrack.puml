@@ -1,0 +1,26 @@
+@startuml
+package fr.ensim.tp.xmjson.deezer.service.* {
+
+abstract class "AbstractSearchTrack" {
++List<Track> find(String albumId)
++{abstract} List<Track> readTrack(InputStream in) throws Exception
++{abstract} Ouput format()
+}
+
+enum "Output" {
++XML
++JSON
+}
+
+AbstractSearchTrack <|-- DOMSearchTrack
+AbstractSearchTrack <|-- StaXSearchTrack
+AbstractSearchTrack <|-- JSONSearchTrack
+AbstractSearchTrack <|-- SAXSearchTrack
+
+note bottom of DOMSearchTrack
+Implémentez en premier cette classe.
+A la fin des TP, s'il vous reste du temps,
+vous pouvez implémenter les autres classes.
+end note
+}
+@enduml
