@@ -81,21 +81,23 @@ class SAXSearchAlbumsHandler extends DefaultHandler {
       isAlbum = true;
       listAlbum.add(new Album());
     }
-    if (!isArtist && localName.equals("id"))
+    if (isAlbum && !isArtist && localName.equals("id"))
       isIdAlbum = true;
-    if (!isTrack && localName.equals("title"))
+    if (isAlbum && !isTrack && localName.equals("title"))
       isTitleAlbum = true;
-    if (localName.equals("artist")) {
+    if (isAlbum && localName.equals("cover"))
+      isCover = true;
+    if (isAlbum && localName.equals("artist")) {
       isArtist = true;
       listAlbum.get(listAlbum.size() - 1).setArtist(new Artist());
     }
     if (isArtist && localName.equals("id"))
       isIdArtist = true;
-    if (localName.equals("name"))
+    if (isArtist && localName.equals("name"))
       isName = true;
-    if (localName.equals("link"))
+    if (isArtist && localName.equals("link"))
       isLink = true;
-    if (localName.equals("picture"))
+    if (isArtist && localName.equals("picture"))
       isPicture = true;
     if (isTrack && localName.equals("title"))
       isTitleTrack = true;
@@ -103,8 +105,8 @@ class SAXSearchAlbumsHandler extends DefaultHandler {
       isTrack = true;
       listAlbum.get(listAlbum.size() - 1).addTrack(new Track());
     }
-    if (localName.equals("cover"))
-      isCover = true;
+    if (isTrack && localName.equals("preview"))
+      isPreview = true;
 
   }
 
@@ -128,16 +130,26 @@ class SAXSearchAlbumsHandler extends DefaultHandler {
       isAlbum = false;
     if (!isArtist && localName.equals("id"))
       isIdAlbum = false;
+    if (!isTrack && localName.equals("title"))
+      isTitleAlbum = false;
+    if (isAlbum && localName.equals("cover"))
+      isCover = false;
     if (localName.equals("artist"))
       isArtist = false;
     if (isArtist && localName.equals("id"))
       isIdArtist = false;
-    if (localName.equals("name"))
+    if (isArtist && localName.equals("name"))
       isName = false;
-    if (localName.equals("link"))
+    if (isArtist && localName.equals("link"))
       isLink = false;
-    if (localName.equals("picture"))
+    if (isArtist && localName.equals("picture"))
       isPicture = false;
+    if (isTrack && localName.equals("title"))
+      isTitleTrack = false;
+    if (localName.equals("track"))
+      isTrack = false;
+    if (isTrack && localName.equals("preview"))
+      isPreview = false;
 
   }
 
@@ -149,16 +161,24 @@ class SAXSearchAlbumsHandler extends DefaultHandler {
   @Override
   public void characters(char[] ch, int start, int length) throws SAXException {
     content = new String(ch, start, length);
+    int indexTrack = 0;
+    int indexAlbum = listAlbum.size()-1;
+    if (indexAlbum > 0)
+      indexTrack = listAlbum.get(listAlbum.size()-1).getTracks().size()-1;
     if (isIdAlbum)
-      listAlbum.get(listAlbum.size()-1).setId(content);
+      listAlbum.get(indexAlbum).setId(content);
     if (isIdArtist)
-      listAlbum.get(listAlbum.size()-1).getArtist().setId(content);
+      listAlbum.get(indexAlbum).getArtist().setId(content);
     if (isName)
-      listAlbum.get(listAlbum.size()-1).getArtist().setName(content);
+      listAlbum.get(indexAlbum).getArtist().setName(content);
     if (isLink)
-      listAlbum.get(listAlbum.size()-1).getArtist().setLink(content);
+      listAlbum.get(indexAlbum).getArtist().setLink(content);
     if (isPicture)
-      listAlbum.get(listAlbum.size()-1).getArtist().setPicture(content);
+      listAlbum.get(indexAlbum).getArtist().setPicture(content);
+    if (isTitleTrack)
+      listAlbum.get(indexAlbum).getTracks().get(indexTrack).setTitle(content);
+    if (isPreview)
+      listAlbum.get(indexAlbum).getTracks().get(indexTrack).setPreview(content);
   }
 
 }
