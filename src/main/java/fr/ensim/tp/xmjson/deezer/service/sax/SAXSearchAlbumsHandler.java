@@ -99,12 +99,12 @@ class SAXSearchAlbumsHandler extends DefaultHandler {
       isLink = true;
     if (isArtist && localName.equals("picture"))
       isPicture = true;
-    if (isTrack && localName.equals("title"))
-      isTitleTrack = true;
     if (localName.equals("track")) {
       isTrack = true;
       listAlbum.get(listAlbum.size() - 1).addTrack(new Track());
     }
+    if (isTrack && localName.equals("title"))
+      isTitleTrack = true;
     if (isTrack && localName.equals("preview"))
       isPreview = true;
 
@@ -161,6 +161,7 @@ class SAXSearchAlbumsHandler extends DefaultHandler {
   @Override
   public void characters(char[] ch, int start, int length) throws SAXException {
     content = new String(ch, start, length);
+
     int indexTrack = 0;
     int indexAlbum = listAlbum.size()-1;
     if (indexAlbum > 0)
@@ -175,10 +176,15 @@ class SAXSearchAlbumsHandler extends DefaultHandler {
       listAlbum.get(indexAlbum).getArtist().setLink(content);
     if (isPicture)
       listAlbum.get(indexAlbum).getArtist().setPicture(content);
+    if (isTitleAlbum)
+      listAlbum.get(indexAlbum).setTitle(content);
+    if (isCover)
+      listAlbum.get(indexAlbum).setCover(content);
     if (isTitleTrack)
       listAlbum.get(indexAlbum).getTracks().get(indexTrack).setTitle(content);
     if (isPreview)
       listAlbum.get(indexAlbum).getTracks().get(indexTrack).setPreview(content);
+
   }
 
 }

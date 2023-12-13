@@ -37,7 +37,7 @@ public class DOMSearchTrack extends AbstractSearchTrack {
 
     // parsing
     NodeList nl = doc.getElementsByTagName("track");
-    for (int i =0; i < nl.getLength(); i++) {
+    for (int i = 0; i < nl.getLength(); i++) {
       Element elTrack = (Element) nl.item(i);
       elTrack.getElementsByTagName("title").item(0).getTextContent();
     }
