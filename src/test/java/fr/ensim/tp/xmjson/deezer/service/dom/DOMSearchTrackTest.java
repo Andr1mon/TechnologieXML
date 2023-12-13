@@ -21,6 +21,8 @@ class DOMSearchTrackTest {
         assertEquals(13, trackList.size());
         assertEquals("(Druun)", trackList.get(0).getTitle());
         assertEquals("https://cdns-preview-5.dzcdn.net/stream/c-5f6892fc926df78cbe81cb5e308f9f8e-3.mp3", trackList.get(0).getPreview());
+        assertEquals("Home", trackList.get(12).getTitle());
+        assertEquals("https://cdns-preview-8.dzcdn.net/stream/c-8ca50caa351188ac832d25c26da4c83e-3.mp3", trackList.get(12).getPreview());
     }
 }
 
