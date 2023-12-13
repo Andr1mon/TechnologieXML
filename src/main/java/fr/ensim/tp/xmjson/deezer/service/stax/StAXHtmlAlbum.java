@@ -29,7 +29,8 @@ public class StAXHtmlAlbum implements IHtmlAlbum {
     log.debug(">>write");
 
     XMLStreamWriter xmlWriter = null;
-    
+
+
 
     log.debug("<<write");
   }
