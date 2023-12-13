@@ -60,23 +60,15 @@ class SAXSearchAlbumsHandler extends DefaultHandler {
       log.debug(st);
     }
 
-//    if (isAlbum) {
-//      switch (localName) {
-//        case "id":
-//          listAlbum.get(listAlbum.size()-1).setId(characters());
-//          break;
-//      }
-//    }
-
     if (localName.equals("album")) {
       isAlbum = true;
       listAlbum.add(new Album());
     }
-    if (isAlbum && localName.equals("artist")) {
+    else if (isAlbum && localName.equals("artist")) {
       isArtist = true;
       listAlbum.get(listAlbum.size() - 1).setArtist(new Artist());
     }
-    if (localName.equals("track")) {
+    else if (localName.equals("track")) {
       isTrack = true;
       listAlbum.get(listAlbum.size() - 1).addTrack(new Track());
     }
@@ -103,31 +95,31 @@ class SAXSearchAlbumsHandler extends DefaultHandler {
     int indexAlbum = listAlbum.size() - 1;
     if (indexAlbum > 0)
       indexTrack = listAlbum.get(listAlbum.size() - 1).getTracks().size() - 1;
+
     if (localName.equals("album"))
       isAlbum = false;
-    if (!isArtist && localName.equals("id"))
+    else if (!isArtist && localName.equals("id"))
       listAlbum.get(indexAlbum).setId(content);
-    if (!isTrack && localName.equals("title"))
+    else if (!isTrack && localName.equals("title"))
       listAlbum.get(indexAlbum).setTitle(content);
-    if (isAlbum && localName.equals("cover"))
+    else if (isAlbum && localName.equals("cover"))
       listAlbum.get(indexAlbum).setCover(content);
-    if (localName.equals("artist"))
+    else if (localName.equals("artist"))
       isArtist = false;
-    if (isArtist && localName.equals("id"))
+    else if (isArtist && localName.equals("id"))
       listAlbum.get(indexAlbum).getArtist().setId(content);
-    if (isArtist && localName.equals("name"))
+    else if (isArtist && localName.equals("name"))
       listAlbum.get(indexAlbum).getArtist().setName(content);
-    if (isArtist && localName.equals("link"))
+    else if (isArtist && localName.equals("link"))
       listAlbum.get(indexAlbum).getArtist().setLink(content);
-    if (isArtist && localName.equals("picture"))
+    else if (isArtist && localName.equals("picture"))
       listAlbum.get(indexAlbum).getArtist().setPicture(content);
-    if (isTrack && localName.equals("title"))
+    else if (isTrack && localName.equals("title"))
       listAlbum.get(indexAlbum).getTracks().get(indexTrack).setTitle(content);
-    if (localName.equals("track"))
+    else if (localName.equals("track"))
       isTrack = false;
-    if (isTrack && localName.equals("preview"))
+    else if (isTrack && localName.equals("preview"))
       listAlbum.get(indexAlbum).getTracks().get(indexTrack).setPreview(content);
-
   }
 
   /*
