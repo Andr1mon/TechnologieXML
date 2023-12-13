@@ -12,9 +12,11 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DOMSearchTrack extends AbstractSearchTrack {
+  private List<Track> listTrack = new ArrayList<>();
   private static Logger log = LogManager.getLogger();
 
   @Override
@@ -25,8 +27,6 @@ public class DOMSearchTrack extends AbstractSearchTrack {
   @Override
   public List<Track> readTracks(InputStream in) throws Exception {
     log.debug(">>readTracks");
-
-
 
     // recuperation d'un parser DOM
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -39,10 +39,12 @@ public class DOMSearchTrack extends AbstractSearchTrack {
     NodeList nl = doc.getElementsByTagName("track");
     for (int i = 0; i < nl.getLength(); i++) {
       Element elTrack = (Element) nl.item(i);
-      elTrack.getElementsByTagName("title").item(0).getTextContent();
+      listTrack.add(new Track());
+      listTrack.get(listTrack.size()-1).setTitle(elTrack.getElementsByTagName("title").item(0).getTextContent());
+      listTrack.get(listTrack.size()-1).setPreview(elTrack.getElementsByTagName("preview").item(0).getTextContent().replace(" ", "").replace("\n", ""));
     }
 
     log.debug("<<readTracks");
-    return null;
+    return listTrack;
   }
 }
